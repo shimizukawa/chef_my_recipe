@@ -1,6 +1,5 @@
 require_recipe "apt"
 
-package "curl"
 package 'build-essential'
 package 'libsqlite3-dev'
 package 'libreadline6-dev'
