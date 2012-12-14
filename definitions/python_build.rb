@@ -10,11 +10,13 @@ define :python_build, :action => :build, :owner => 'vagrant' do
   when :build
     directory archive_dir do
       action :create
+      owner owner
     end
 
     remote_file archive_file do
       action :create_if_missing
       path "#{archive_dir}/#{archive_file}"
+      owner owner
       source "http://www.python.org/ftp/python/#{version}/#{archive_file}"
       notifies :run, "execute[extract-python-#{version}]"
     end
@@ -22,6 +24,7 @@ define :python_build, :action => :build, :owner => 'vagrant' do
     execute "extract-python-#{version}" do
       #action :nothing
       cwd archive_dir
+      user owner
       command "tar jxf #{archive_file}"
       not_if "test -f #{archive_dir}/Python-#{version}"
       notifies :run, "execute[configure-python-#{version}]"
@@ -30,21 +33,33 @@ define :python_build, :action => :build, :owner => 'vagrant' do
     execute "configure-python-#{version}" do
       #action :nothing
       cwd "#{archive_dir}/Python-#{version}"
+      user owner
       command "./configure --prefix=#{install_prefix}"
       not_if "test -f #{archive_dir}/Python-#{version}/Makefile"
+      notifies :run, "cookbook_file[place-python-#{version}-setup.cfg]"
+    end
+
+    cookbook_file "place-python-#{version}-setup.cfg" do
+      path "#{archive_dir}/Python-#{version}/setup.cfg"
+      source 'setup.cfg'
+      action :create_if_missing
+      owner owner
+      mode "0664"
       notifies :run, "execute[make-python-#{version}]"
     end
 
     execute "make-python-#{version}" do
-      action :nothing
+      #action :nothing
       cwd "#{archive_dir}/Python-#{version}"
+      user owner
       command "make"
       notifies :run, "execute[make-install-python-#{version}]"
     end
 
     execute "make-install-python-#{version}" do
-      action :nothing
+      #action :nothing
       cwd "#{archive_dir}/Python-#{version}"
+      user 'root'
       command "make install"
     end
 
