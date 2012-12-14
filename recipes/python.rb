@@ -11,6 +11,8 @@ package 'sqlite3'
 package "libjpeg62-dev"
 package "gettext"
 
+package "pypy"
+
 node.python_build.versions.each do |version|
   python_build version
   node.python_build.packages.each do |package|
