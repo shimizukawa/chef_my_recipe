@@ -5,6 +5,7 @@ define :python_build, :action => :build, :owner => 'vagrant' do
   archive_dir = params[:archive_dir] || "/home/#{owner}/src"
   archive_file = "Python-#{version}.tar.bz2"
   install_prefix = params[:install_prefix] || '/usr/local'
+  install_target = "#{install_prefix}/bin/python#{version.split('.')[0,2].join('.')}"
 
   case params[:action]
   when :build
@@ -53,6 +54,7 @@ define :python_build, :action => :build, :owner => 'vagrant' do
       cwd "#{archive_dir}/Python-#{version}"
       user owner
       command "make"
+      not_if {File.exists?(install_target)}
       notifies :run, "execute[make-install-python-#{version}]"
     end
 
@@ -61,6 +63,7 @@ define :python_build, :action => :build, :owner => 'vagrant' do
       cwd "#{archive_dir}/Python-#{version}"
       user 'root'
       command "make install"
+      not_if {File.exists?(install_target)}
     end
 
   end
