@@ -1,0 +1,22 @@
+[ui]
+<%- if node[:hgrc][:username] %>
+username = <%= node[:mercurial_ext][:username] %>
+<%- end -%>
+
+[extensions]
+graphlog =
+record =
+mq =
+histedit = <%= node[:mercurial_ext][:hgext_dir] %>/hg_histedit.py
+shelve = <%= node[:mercurial_ext][:hgext_dir] %>/hgshelve.py
+bb = <%= node[:mercurial_ext][:hgext_dir] %>/hgbb.py
+
+[hostfingerprints]
+<%- node[:hgrc][:hostfingerprints].each_pair do |k,v| -%>
+<%= k %> = <%= v %>
+<%- end -%>
+
+[bb]
+<%- node[:hgrc][:bb].each_pair do |k,v| -%>
+<%= k %> = <%= v %>
+<%- end -%>

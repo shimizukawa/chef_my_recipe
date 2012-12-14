@@ -21,3 +21,18 @@ default[:python_build][:archive_dir] = "/home/vagrant/src"
 default[:python_build][:install_prefix] = '/usr/local'
 default[:python_build][:action] = 'build'
 default[:python_build][:versions] = ['2.7.3']
+
+default[:mercurial_ext][:action] = :run
+default[:mercurial_ext][:owner] = 'vagrant'
+default[:mercurial_ext][:hgext_dir] = "/home/vagrant/.hgext"
+
+default[:hgrc][:path] = '/home/vagrant/.hgrc'
+default[:hgrc][:username] = nil
+default[:hgrc][:hostfingerprints] = {
+  'bitbucket.org' => '24:9c:45:8b:9c:aa:ba:55:4e:01:6d:58:ff:e4:28:7d:2a:14:ae:3b',
+}
+default[:hgrc][:bb] = {
+  'username' => '',
+  'password' => '',
+  'default_method' => 'ssh',
+}
