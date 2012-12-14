@@ -14,4 +14,9 @@ package "gettext"
 
 node.python_build.versions.each do |version|
   python_build version
+  node.python_build.packages.each do |package|
+    python_package package do
+      version version
+    end
+  end
 end
