@@ -6,4 +6,5 @@ mercurial_ext 'https://bitbucket.org/birkenfeld/hgbb/raw/tip/hgbb.py'
 
 template node.hgrc.path do
   source 'hgrc.erb'
+  user node.hgrc.owner
 end

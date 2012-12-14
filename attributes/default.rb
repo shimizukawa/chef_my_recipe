@@ -26,6 +26,7 @@ default[:mercurial_ext][:action] = :run
 default[:mercurial_ext][:owner] = 'vagrant'
 default[:mercurial_ext][:hgext_dir] = "/home/vagrant/.hgext"
 
+default[:hgrc][:owner] = 'vagrant'
 default[:hgrc][:path] = '/home/vagrant/.hgrc'
 default[:hgrc][:username] = nil
 default[:hgrc][:hostfingerprints] = {
