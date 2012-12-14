@@ -35,5 +35,5 @@ default[:hgrc][:hostfingerprints] = {
 default[:hgrc][:bb] = {
   'username' => '',
   'password' => '',
-  'default_method' => 'ssh',
+  'default_method' => 'https',
 }
