@@ -27,7 +27,7 @@ define :python_build, :action => :build, :owner => 'vagrant' do
       cwd archive_dir
       user owner
       command "tar jxf #{archive_file}"
-      not_if "test -f #{archive_dir}/Python-#{version}"
+      not_if "test -d #{archive_dir}/Python-#{version}"
       notifies :run, "execute[configure-python-#{version}]"
     end
 
