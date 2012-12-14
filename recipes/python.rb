@@ -11,6 +11,6 @@ package 'sqlite3'
 #pakcage 'tk-dev' #not found on ubuntu-12.04?
 package "libjpeg62-dev"
 
-node.python_build.versions.each do version
+node.python_build.versions.each do |version|
   python_build version
 end
